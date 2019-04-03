@@ -1,8 +1,7 @@
 const path = require('path');
+const webpack = require('webpack');
 
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-
-module.exports = {
+const baseConfig = {
   mode: 'production',
   entry: './src/index.ts',
   devtool: 'inline-source-map',
@@ -18,17 +17,39 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
+  plugins: [
+    new webpack.ProgressPlugin(),
+  ],
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'index.js',
+    filename: '[name].js',
     libraryTarget: 'umd',
+    libraryExport: 'default',
+    library: 'vyapti__parser',
     globalObject: 'this',
-    library: '@vyapti/parser',
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-  ],
+};
+
+const nodeConfig = {
+  ...baseConfig,
+  target: 'node',
+  entry: {
+    'index': './src/index.ts',
+  },
+  node: {
+    fs: true,
+  }
+};
+
+const webConfig = {
+  ...baseConfig,
+  target: 'web',
+  entry: {
+    'index.umd': './src/index.ts',
+  },
   node: {
     fs: 'empty',
   },
 };
+
+module.exports = [nodeConfig, webConfig];
