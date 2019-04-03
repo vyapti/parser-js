@@ -7,6 +7,13 @@ import Report from '../reports/report';
 import Parser from './parser';
 
 class FileParser extends Parser {
+  constructor() {
+    super();
+    if (!fs.readFile || !fs.readFileSync) {
+      throw new Error('FileParser is not supported in this environment!');
+    }
+  }
+
   public async parse(
     filePath: string,
     options: {
