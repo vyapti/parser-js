@@ -40,9 +40,11 @@
     "karma-sinon": "^1.0.5",
     "karma-typescript": "^4.0.0",
     "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
     "prettier": "^1.16.4",
     "rimraf": "^2.6.3",
     "sinon": "^7.2.7",
+    "source-map-support": "^0.5.11",
     "ts-loader": "^5.3.3",
     "ts-node": "^8.0.3",
     "tslib": "^1.9.3",
@@ -57,11 +59,12 @@
     "build:watch": "yarn run clean && webpack -w",
     "build:dev": "yarn run clean && tsc",
     "build:dev:watch": "yarn run clean && tsc -w",
-    "clean": "rimraf dist/",
-    "clean:all": "rimraf dist/ node_modules/ yarn.lock",
+    "clean": "rimraf dist/ coverage/ .nyc_output/",
+    "clean:all": "rimraf dist/ coverage/ .nyc_output/ node_modules/ yarn.lock",
+    "coverage": "nyc mocha",
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
     "lint:fix": "tslint -t stylish --fix --project \"tsconfig.json\"",
-    "test": "mocha -r ts-node/register test/**/*.test.ts",
-    "test:watch": "mocha --watch -r ts-node/register test/**/*.test.ts"
+    "test": "mocha",
+    "test:watch": "mocha --watch"
   }
 }
