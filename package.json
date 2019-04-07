@@ -40,6 +40,7 @@
     "karma-sinon": "^1.0.5",
     "karma-typescript": "^4.0.0",
     "mocha": "^6.0.2",
+    "nodemon": "^1.18.10",
     "nyc": "^13.3.0",
     "prettier": "^1.16.4",
     "rimraf": "^2.6.3",
@@ -67,6 +68,6 @@
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
     "lint:fix": "tslint -t stylish --fix --project \"tsconfig.json\"",
     "test": "mocha",
-    "test:watch": "mocha --watch"
+    "test:watch": "nodemon --watch src --watch test -e ts,js --exec \"clear; yarn run test\""
   }
 }
