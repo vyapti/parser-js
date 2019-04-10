@@ -1,7 +1,7 @@
-const pathSeparator: RegExp = /\/+|\\+/;
+const pathSeparator: RegExp = /[\/\\]+/;
 const driveRoot: RegExp = /[a-zA-Z]\:/;
 
-function isRoot(str: string): boolean {
+export function isRoot(str: string): boolean {
   const startsWithSeparator = new RegExp(`^${pathSeparator.source}`);
   if (startsWithSeparator.test(str)) {
     return true;
@@ -15,18 +15,14 @@ function isRoot(str: string): boolean {
   return false;
 }
 
-function normalizeRoot(str: string) {
+export function normalizeRoot(str: string) {
   const result = ['', ''];
   if (!isRoot(str)) {
-    return result
+    return result;
   }
 
   const rootCapture = new RegExp(`^(?:${pathSeparator.source})?(?:(${driveRoot.source})(?:${pathSeparator.source})?)?`);
-  const matches = rootCapture.exec(str);
-
-  if (!matches) {
-    return result
-  }
+  const matches: RegExpExecArray = (rootCapture.exec(str) as RegExpExecArray);
 
   result[0] = matches[0];
   if (matches[1]) {
@@ -38,13 +34,13 @@ function normalizeRoot(str: string) {
   return result;
 }
 
-function compareRoots(str1: string, str2: string): boolean {
+export function compareRoots(str1: string, str2: string): boolean {
   const [matchedRoot1] = normalizeRoot(str1);
   const [matchedRoot2] = normalizeRoot(str2);
   return matchedRoot1 === matchedRoot2;
 }
 
-function normalize(str: string): string {
+export function normalize(str: string): string {
   const [matchedRoot, normalizedRoot] = normalizeRoot(str);
   const segmentStr = str.substring(matchedRoot.length);
   const segments = segmentStr.split(pathSeparator);
@@ -57,38 +53,29 @@ function normalize(str: string): string {
     }
     // Check if up directory
     if (segment === '..') {
-      // If str is absolute path AND there is a segment to remove
-      if (matchedRoot.length > 0) {
-        const last = resolvedSegments.pop();
-        if (last && last === '..') {
-          resolvedSegments.push(last);
-          resolvedSegments.push(segment);
-        }
-      } else {
-        const last = resolvedSegments.pop();
-        if (last && last === '..') {
+      // Remove last segment to handle the up directory
+      const last = resolvedSegments.pop();
+
+      // Check if str is a relative path -- there are special
+      // cases where the up directory effect cannot be resolved
+      if (matchedRoot.length === 0) {
+        if (last === '..') {
+          // The last up directory couldn't be resolved, so push it
+          // back onto the stack. this will happen if a relative path
+          // starts with ".." such as "../../test"
           resolvedSegments.push(last);
         }
         if (!last || last === '..') {
+          // we have to push the current segment (an up directory)
+          // onto the stack since the last segment either not defined or an
+          // up directory itself. In both cases the current segment cannot be
+          // handled.
           resolvedSegments.push(segment);
         }
-
       }
       return;
     }
 
-    // // Check if up directory
-    // if (segment === '..') {
-    //   // Remove the last segment if it isn't a up directory itself,
-    //   // Otherwise add the up directory to the resolved segments
-    //   if (resolvedSegments.length > 0 && resolvedSegments[resolvedSegments.length - 1] !== '..') {
-    //     resolvedSegments.pop();
-    //   } else {
-    //     resolvedSegments.push(segment);
-    //   }
-    //   return;
-    // }
-    // Push segment onto the resolved segments
     resolvedSegments.push(segment);
   });
 
