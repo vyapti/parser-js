@@ -21,8 +21,12 @@ export function normalizeRoot(str: string) {
     return result;
   }
 
-  const rootCapture = new RegExp(`^(?:${pathSeparator.source})?(?:(${driveRoot.source})(?:${pathSeparator.source})?)?`);
-  const matches: RegExpExecArray = (rootCapture.exec(str) as RegExpExecArray);
+  const rootCapture = new RegExp(
+    `^(?:${pathSeparator.source})?(?:(${driveRoot.source})(?:${
+      pathSeparator.source
+    })?)?`,
+  );
+  const matches: RegExpExecArray = rootCapture.exec(str) as RegExpExecArray;
 
   result[0] = matches[0];
   if (matches[1]) {
@@ -97,7 +101,7 @@ export default function relative(from: string, to: string): string {
 
   const [fromNormal, toNormal] = [from, to].map(normalize);
 
-  if(fromNormal === '') {
+  if (fromNormal === '') {
     // fromNormal is an empty string, so relative path can't be found
     // return the toNormal
     return toNormal;
@@ -129,7 +133,9 @@ export default function relative(from: string, to: string): string {
   }
 
   const fromUpDirs = fromSegments.map(() => '..');
-  const related = `${fromUpDirs.join('/')}${fromUpDirs.length > 0 ? '/' : ''}${toSegments.join('/')}`;
+  const related = `${fromUpDirs.join('/')}${
+    fromUpDirs.length > 0 ? '/' : ''
+  }${toSegments.join('/')}`;
 
   const relatedNormal = normalize(related);
 

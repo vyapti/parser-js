@@ -116,9 +116,7 @@ class TreeReportNodeBuilder {
     }
   }
 
-  private isLeaf(
-    n: TreeReportNode | DetailedSummary,
-  ): n is DetailedSummary {
+  private isLeaf(n: TreeReportNode | DetailedSummary): n is DetailedSummary {
     return !(n as TreeReportNode).children;
   }
 }

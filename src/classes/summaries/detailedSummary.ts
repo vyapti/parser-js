@@ -5,12 +5,19 @@ import DetailedRecord from '../records/detailedRecord';
 
 import Summary from './summary';
 
-class DetailedSummary extends Summary implements Cloneable<DetailedSummary>, Combinable<DetailedSummary> {
+class DetailedSummary extends Summary
+  implements Cloneable<DetailedSummary>, Combinable<DetailedSummary> {
   protected _branch: DetailedRecord;
   protected _function: DetailedRecord;
   protected _line: DetailedRecord;
 
-  constructor(path: string, name: string, branch: DetailedRecord, func: DetailedRecord, line: DetailedRecord) {
+  constructor(
+    path: string,
+    name: string,
+    branch: DetailedRecord,
+    func: DetailedRecord,
+    line: DetailedRecord,
+  ) {
     super(path, name, branch, func, line);
     this._branch = branch;
     this._function = func;

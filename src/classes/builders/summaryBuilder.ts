@@ -31,7 +31,13 @@ class SummaryBuilder {
     const branchRecord = new Record(this._branchTotal, this._branchHits);
     const functionRecord = new Record(this._functionTotal, this._functionHits);
     const lineRecord = new Record(this._lineTotal, this._lineHits);
-    return new Summary(this._filePath, this._name, branchRecord, functionRecord, lineRecord);
+    return new Summary(
+      this._filePath,
+      this._name,
+      branchRecord,
+      functionRecord,
+      lineRecord,
+    );
   }
 
   public parse(line: string): void {
@@ -47,7 +53,7 @@ class SummaryBuilder {
       case InfoTypes.SourceFile: {
         this._filePath = relative(this._rootDirectory, content);
         // Insert a / instead of empty string for filepath
-        if(this._filePath === '') {
+        if (this._filePath === '') {
           this._filePath = '/';
         }
         break;

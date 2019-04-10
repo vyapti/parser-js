@@ -21,7 +21,9 @@ class TreeReportBuilder extends ReportBuilder {
     return new TreeReport(this._totalSummary, this._paths, details);
   }
 
-  protected getDetailSummaryBuilder(rootDirectory?: string): DetailedSummaryBuilder {
+  protected getDetailSummaryBuilder(
+    rootDirectory?: string,
+  ): DetailedSummaryBuilder {
     return new DetailedSummaryBuilder(rootDirectory);
   }
 
@@ -36,7 +38,10 @@ class TreeReportBuilder extends ReportBuilder {
     return node.children;
   }
 
-  private groupify(summaries: { [index: string]: DetailedSummary }, path: string = ''): any {
+  private groupify(
+    summaries: { [index: string]: DetailedSummary },
+    path: string = '',
+  ): any {
     // Return detailed summary if there is only one
     const keyCheck = Object.keys(summaries);
     if (keyCheck.length === 1) {
@@ -44,12 +49,19 @@ class TreeReportBuilder extends ReportBuilder {
     }
 
     // Group summaries using the path of the summary
-    const groups: { [index: string]: { summaries: { [index: string]: DetailedSummary }, path: string } } = {};
-    for(const keyPath in summaries) {
+    const groups: {
+      [index: string]: {
+        summaries: { [index: string]: DetailedSummary };
+        path: string;
+      };
+    } = {};
+    for (const keyPath in summaries) {
       if (!summaries.hasOwnProperty(keyPath)) {
         continue;
       }
-      const segments = relative(path || '/', keyPath).split('/').filter(s => s !== '');
+      const segments = relative(path || '/', keyPath)
+        .split('/')
+        .filter(s => s !== '');
       const group = segments.shift() || '';
       if (!groups[group]) {
         let newPath = group;
@@ -88,7 +100,7 @@ class TreeReportBuilder extends ReportBuilder {
 
   private buildify(rawNode: any, path: string = ''): NodeOrLeaf {
     if (!rawNode.tree) {
-      return (rawNode as DetailedSummary);
+      return rawNode as DetailedSummary;
     } else {
       const nodeBuilder = new TreeReportNodeBuilder(path);
       Object.values(rawNode.tree).forEach((rawTree: any) => {

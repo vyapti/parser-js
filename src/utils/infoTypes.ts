@@ -78,4 +78,4 @@ export default {
   LineHitCount: 'LH',
   SourceFile: 'SF',
   TestName: 'TN',
-}
+};

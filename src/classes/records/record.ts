@@ -25,7 +25,11 @@ class Record implements Cloneable<Record>, Combinable<Record> {
   }
 
   public combine(other: Record): Record {
-    return new Record(this._total + other.total, this._hit + other.hit, this._miss + other.miss);
+    return new Record(
+      this._total + other.total,
+      this._hit + other.hit,
+      this._miss + other.miss,
+    );
   }
 
   public clone(): Record {

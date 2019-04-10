@@ -6,7 +6,11 @@ import Report from './report';
 class FlatReport extends Report {
   protected _details: { [index: string]: DetailedSummary };
 
-  constructor(total: Summary, paths: string[], details: { [index: string]: DetailedSummary }) {
+  constructor(
+    total: Summary,
+    paths: string[],
+    details: { [index: string]: DetailedSummary },
+  ) {
     super(total, paths, details);
     this._details = details;
   }

@@ -22,7 +22,10 @@ class Detail implements Cloneable<Detail>, Combinable<Detail> {
     if (this._lineNumber !== other.lineNumber) {
       return this.clone();
     }
-    return new Detail(this._lineNumber, this._executionCount + other.executionCount);
+    return new Detail(
+      this._lineNumber,
+      this._executionCount + other.executionCount,
+    );
   }
 
   public clone(): Detail {

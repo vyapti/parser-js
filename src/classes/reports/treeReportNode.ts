@@ -11,7 +11,8 @@ export function isLeaf(n: NodeOrLeaf): n is DetailedSummary {
   return !(n as TreeReportNode).children;
 }
 
-class TreeReportNode extends Summary implements Cloneable<TreeReportNode>, Combinable<TreeReportNode> {
+class TreeReportNode extends Summary
+  implements Cloneable<TreeReportNode>, Combinable<TreeReportNode> {
   protected _childPaths: string[] = [];
   protected _children: {
     [index: string]: NodeOrLeaf;
@@ -55,16 +56,12 @@ class TreeReportNode extends Summary implements Cloneable<TreeReportNode>, Combi
           // both objects are leaves, combine them using typecasting
           cloned._children[key] = (cloned.children[
             key
-          ] as DetailedSummary).combine(other.children[
-            key
-          ] as DetailedSummary);
+          ] as DetailedSummary).combine(other.children[key] as DetailedSummary);
         } else if (typeCheck === 0) {
           // both objects are tree nodes, combine them using typecasting
           cloned._children[key] = (cloned.children[
             key
-          ] as TreeReportNode).combine(other.children[
-            key
-          ] as TreeReportNode);
+          ] as TreeReportNode).combine(other.children[key] as TreeReportNode);
         }
       } else {
         cloned.children[key] = other.children[key].clone();

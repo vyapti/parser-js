@@ -5,7 +5,11 @@ class Report {
   protected _paths: string[];
   protected _details: { [index: string]: Summary };
 
-  constructor(total: Summary, paths: string[], details: { [index: string]: Summary }) {
+  constructor(
+    total: Summary,
+    paths: string[],
+    details: { [index: string]: Summary },
+  ) {
     this._total = total;
     this._paths = paths;
     this._details = details;

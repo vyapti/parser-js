@@ -31,8 +31,11 @@ class Parser {
     throw new Error('This should be implemented by subclasses');
   }
 
-  protected createBuilder(rootDirectory?: string, mode: ReportMode = ReportMode.Simple): ReportBuilder {
-    switch(mode) {
+  protected createBuilder(
+    rootDirectory?: string,
+    mode: ReportMode = ReportMode.Simple,
+  ): ReportBuilder {
+    switch (mode) {
       case ReportMode.Detail: {
         return new FlatReportBuilder(rootDirectory);
         break;
