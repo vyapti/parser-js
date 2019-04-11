@@ -39,9 +39,8 @@ class DetailedRecord extends Record
 
   public combine(other: DetailedRecord): DetailedRecord {
     const cr = super.combine(other);
-    const cdr = new DetailedRecord(cr.total, cr.hit, cr.miss, this._details);
-    cdr.combineDetails(other.details);
-    return cdr;
+    const combined = this.combineDetails(other.details);
+    return new DetailedRecord(cr.total, cr.hit, cr.miss, combined);
   }
 
   public clone(): DetailedRecord {
