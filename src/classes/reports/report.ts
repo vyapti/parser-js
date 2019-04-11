@@ -10,9 +10,12 @@ class Report {
     paths: string[],
     details: { [index: string]: Summary },
   ) {
-    this._total = total;
-    this._paths = paths;
-    this._details = details;
+    this._total = total.clone();
+    this._paths = paths.slice(0);
+    this._details = {};
+    Object.keys(details).forEach(key => {
+      this._details[key] = details[key].clone();
+    });
   }
 
   public get total(): Summary {

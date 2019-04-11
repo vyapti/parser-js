@@ -28,8 +28,15 @@ class TreeReportNode extends Summary
     children?: { [index: string]: NodeOrLeaf },
   ) {
     super(path, name, branch, func, line);
-    this._childPaths = childPaths || [];
-    this._children = children || {};
+    if (childPaths) {
+      this._childPaths = childPaths.slice(0);
+    }
+    if (children) {
+      this._children = {};
+      Object.keys(children).forEach(key => {
+        this._children[key] = children[key].clone();
+      });
+    }
   }
 
   public get childPaths() {
@@ -42,10 +49,13 @@ class TreeReportNode extends Summary
 
   public combine(other: TreeReportNode): TreeReportNode {
     const cloned = this.clone();
-    cloned._name = this.name || other.name;
-    if (this.path === other.path) {
+    if (this.path !== other.path) {
       return cloned;
     }
+    cloned._name = this.name || other.name;
+    cloned._branch = this.branch.combine(other.branch);
+    cloned._function = this.function.combine(other.function);
+    cloned._line = this.line.combine(other.line);
 
     Object.keys(other.children).forEach((key: string) => {
       if (cloned.children[key]) {
