@@ -20,9 +20,9 @@ class Summary implements Cloneable<Summary>, Combinable<Summary> {
   ) {
     this._name = name;
     this._path = path;
-    this._branch = branch;
-    this._function = func;
-    this._line = line;
+    this._branch = branch.clone();
+    this._function = func.clone();
+    this._line = line.clone();
   }
 
   public get name() {

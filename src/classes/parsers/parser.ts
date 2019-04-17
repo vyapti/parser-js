@@ -5,31 +5,20 @@ import ReportBuilder from '../builders/reportBuilder';
 import TreeReportBuilder from '../builders/treeReportBuilder';
 import Report from '../reports/report';
 
-class Parser {
-  constructor() {
-    if (new.target === Parser) {
-      throw new TypeError(
-        'Cannot construct instances of Abstract Parser directly!',
-      );
-    }
-  }
-  public async parse(
+abstract class Parser {
+  public abstract async parse(
     _: string | ReadableStream,
     __: {
       encoding?: string;
       rootDirectory?: string;
       mode?: ReportMode;
-    } = {},
-  ): Promise<Report> {
-    throw new Error('This should be implemented by subclasses');
-  }
+    },
+  ): Promise<Report>;
 
-  public parseSync(
+  public abstract parseSync(
     _: string | ReadableStream,
-    __: { encoding?: string; rootDirectory?: string } = {},
-  ): Report {
-    throw new Error('This should be implemented by subclasses');
-  }
+    __: { encoding?: string; rootDirectory?: string },
+  ): Report;
 
   protected createBuilder(
     rootDirectory?: string,
@@ -38,15 +27,12 @@ class Parser {
     switch (mode) {
       case ReportMode.Detail: {
         return new FlatReportBuilder(rootDirectory);
-        break;
       }
       case ReportMode.Tree: {
         return new TreeReportBuilder(rootDirectory);
-        break;
       }
       default: {
         return new ReportBuilder(rootDirectory);
-        break;
       }
     }
   }

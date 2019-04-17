@@ -12,7 +12,10 @@ class FlatReport extends Report {
     details: { [index: string]: DetailedSummary },
   ) {
     super(total, paths, details);
-    this._details = details;
+    this._details = {};
+    Object.keys(details).forEach(key => {
+      this._details[key] = details[key].clone();
+    });
   }
 
   public get details(): { [index: string]: DetailedSummary } {

@@ -113,6 +113,17 @@ export default function relative(from: string, to: string): string {
     return toNormal;
   }
 
+  // direct descendent shortcut check
+  if (toNormal.startsWith(fromNormal)) {
+    const difference = toNormal.substring(fromNormal.length);
+    // the next part of the difference is a '/' indicating toNormal
+    // is a direct descendant of fromNormal. remove it and return so
+    // the result is a relative path
+    if (difference.startsWith('/')) {
+      return difference.substring(1);
+    }
+  }
+
   // Attempt to find a common ancestor between the two paths, then
   // back track to that point and go to the to path
 
@@ -132,7 +143,7 @@ export default function relative(from: string, to: string): string {
     }
   }
 
-  const fromUpDirs = fromSegments.map(() => '..');
+  const fromUpDirs = fromSegments.filter(s => s !== '').map(() => '..');
   const related = `${fromUpDirs.join('/')}${
     fromUpDirs.length > 0 ? '/' : ''
   }${toSegments.join('/')}`;

@@ -1,4 +1,4 @@
-import { relative } from '../../utils';
+import relative, { isRoot, normalizeRoot } from '../../utils/relative';
 
 import TreeReport from '../reports/treeReport';
 import { isLeaf, NodeOrLeaf } from '../reports/treeReportNode';
@@ -43,9 +43,9 @@ class TreeReportBuilder extends ReportBuilder {
     path: string = '',
   ): any {
     // Return detailed summary if there is only one
-    const keyCheck = Object.keys(summaries);
-    if (keyCheck.length === 1) {
-      return summaries[keyCheck[0]];
+    const keys = Object.keys(summaries);
+    if (keys.length === 1) {
+      return summaries[keys[0]];
     }
 
     // Group summaries using the path of the summary
@@ -55,14 +55,19 @@ class TreeReportBuilder extends ReportBuilder {
         path: string;
       };
     } = {};
-    for (const keyPath in summaries) {
-      if (!summaries.hasOwnProperty(keyPath)) {
-        continue;
-      }
-      const segments = relative(path || '/', keyPath)
+    keys.forEach(keyPath => {
+      const segments = relative(path, keyPath)
         .split('/')
         .filter(s => s !== '');
-      const group = segments.shift() || '';
+      let group = segments.shift() || '';
+      // If we have no starting path and the key path is a root,
+      // use the root from the key path to construct the group.
+      // This allow the relative() call to work properly if nested
+      // groupify calls are necessary
+      if (path === '' && isRoot(keyPath)) {
+        const [keyRoot] = normalizeRoot(keyPath);
+        group = `${keyRoot}${group}`;
+      }
       if (!groups[group]) {
         let newPath = group;
         if (path !== '') {
@@ -74,23 +79,20 @@ class TreeReportBuilder extends ReportBuilder {
         };
       }
       groups[group].summaries[keyPath] = summaries[keyPath];
-    }
+    });
 
     // Construct a tree of summaries using recursive calls
     const tree: { [index: string]: any } = {};
-    for (const group in groups) {
-      if (!groups.hasOwnProperty(group)) {
-        continue;
-      }
+    Object.keys(groups).forEach(group => {
       const { path: groupPath, summaries: groupSummaries } = groups[group];
 
-      const keys = Object.keys(groupSummaries);
-      if (keys.length === 1) {
-        tree[group] = groupSummaries[keys[0]];
+      const keys2 = Object.keys(groupSummaries);
+      if (keys2.length === 1) {
+        tree[group] = groupSummaries[keys2[0]];
       } else {
         tree[group] = this.groupify(groupSummaries, groupPath);
       }
-    }
+    });
 
     return {
       path,

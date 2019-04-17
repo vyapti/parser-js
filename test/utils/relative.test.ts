@@ -58,6 +58,7 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "to" is a downstream descendant of "from"', () => {
+        expect(relative('', 'test')).to.equal('test');
         expect(relative('test', 'test/then')).to.equal('then');
         expect(relative('test', 'test/./then')).to.equal('then');
         expect(relative('test', 'test/then/./')).to.equal('then');
@@ -70,6 +71,7 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "from" is a downstream descendant of "to"', () => {
+        expect(relative('test', '')).to.equal('..');
         expect(relative('test/then', 'test')).to.equal('..');
         expect(relative('test/./then', 'test')).to.equal('..');
         expect(relative('test/then/./', 'test')).to.equal('..');
@@ -102,6 +104,7 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "to" is a downstream descendant of "from"', () => {
+        expect(relative('/', '/test')).to.equal('test');
         expect(relative('/test/./', '/test/then')).to.equal('then');
         expect(relative('/test/../test', '/test/./then')).to.equal('then');
         expect(relative('/test/./', '/test/then/./')).to.equal('then');
@@ -114,6 +117,7 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "from" is a downstream descendant of "to"', () => {
+        expect(relative('/test', '/')).to.equal('..');
         expect(relative('/test/then', '/test')).to.equal('..');
         expect(relative('/test/./then', '/test')).to.equal('..');
         expect(relative('/test/then/./', '/test')).to.equal('..');
@@ -234,6 +238,7 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "to" is a downstream descendant of "from"', () => {
+        expect(relative('', 'test')).to.equal('test');
         expect(relative('test', 'test\\then')).to.equal('then');
         expect(relative('test', 'test\\.\\then')).to.equal('then');
         expect(relative('test', 'test\\then\\.\\')).to.equal('then');
@@ -246,6 +251,7 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "from" is a downstream descendant of "to"', () => {
+        expect(relative('test', '')).to.equal('..');
         expect(relative('test\\then', 'test')).to.equal('..');
         expect(relative('test\\.\\then', 'test')).to.equal('..');
         expect(relative('test\\then\\.\\', 'test')).to.equal('..');
@@ -284,6 +290,7 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "to" is a downstream descendant of "from"', () => {
+        expect(relative('C:\\', 'C:\\test')).to.equal('test');
         expect(relative('C:\\test\\.\\', 'C:\\test\\then')).to.equal('then');
         expect(relative('C:\\test\\..\\test', 'C:\\test\\.\\then')).to.equal(
           'then',
@@ -312,6 +319,7 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "from" is a downstream descendant of "to"', () => {
+        expect(relative('C:\\test', 'C:\\')).to.equal('..');
         expect(relative('C:\\test\\then', 'C:\\test')).to.equal('..');
         expect(relative('C:\\test\\.\\then', 'C:\\test')).to.equal('..');
         expect(relative('C:\\test\\then\\.\\', 'C:\\test')).to.equal('..');
@@ -420,6 +428,8 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "to" is a downstream descendant of "from"', () => {
+        expect(relative('/d:/', '/d:/test')).to.equal('test');
+        expect(relative('/d:', '/d:/test')).to.equal('test');
         expect(relative('/d:/test/./', '/d:/test/then')).to.equal('then');
         expect(relative('/d:/test/../test', '/d:/test/./then')).to.equal(
           'then',
@@ -442,6 +452,8 @@ describe('relative (utility)', () => {
       });
 
       it('should resolve when "from" is a downstream descendant of "to"', () => {
+        expect(relative('/d:/test', '/d:/')).to.equal('..');
+        expect(relative('/d:/test', '/d:')).to.equal('..');
         expect(relative('/d:/test/then', '/d:/test')).to.equal('..');
         expect(relative('/d:/test/./then', '/d:/test')).to.equal('..');
         expect(relative('/d:/test/then/./', '/d:/test')).to.equal('..');

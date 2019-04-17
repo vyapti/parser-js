@@ -1,6 +1,5 @@
-import * as fs from 'fs';
-
 import { ReportMode } from '../../utils';
+import fs from '../../utils/fs';
 
 import Report from '../reports/report';
 
@@ -23,15 +22,20 @@ class FileParser extends Parser {
     } = {},
   ): Promise<Report> {
     const { encoding, rootDirectory, mode } = options;
-    const stringContent: string = await new Promise((resolve, reject) => {
-      fs.readFile(filePath, { encoding }, (err, data) => {
-        if (err) {
-          reject(err.message);
-        } else {
-          resolve(data.toString(encoding));
-        }
+    let stringContent: string = '';
+    try {
+      stringContent = await new Promise((resolve, reject) => {
+        fs.readFile(filePath, { encoding }, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data.toString(encoding));
+          }
+        });
       });
-    });
+    } catch (err) {
+      throw err;
+    }
     return this.parseContents(stringContent, rootDirectory, mode);
   }
 
