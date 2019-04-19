@@ -4,7 +4,7 @@ import Report from '../reports/report';
 
 import Parser from './parser';
 
-class StreamParser extends Parser {
+class BrowserStreamParser extends Parser {
   public async parse(
     stream: ReadableStream,
     options: {
@@ -73,4 +73,4 @@ class StreamParser extends Parser {
   }
 }
 
-export default StreamParser;
+export default BrowserStreamParser;
