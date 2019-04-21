@@ -2,9 +2,9 @@ import { ReportMode } from '../../utils';
 
 import Report from '../reports/report';
 
-import Parser from './parser';
+import StreamParser from './streamParser';
 
-class BrowserStreamParser extends Parser {
+class BrowserStreamParser extends StreamParser {
   public async parse(
     stream: ReadableStream,
     options: {
@@ -28,17 +28,6 @@ class BrowserStreamParser extends Parser {
     };
     await handleLine();
     return builder.build();
-  }
-
-  public parseSync(
-    _: ReadableStream,
-    __: {
-      encoding?: string;
-      rootDirectory?: string;
-      mode?: ReportMode;
-    } = {},
-  ): Report {
-    throw new Error('Synchronous parsing with string is not supported!');
   }
 
   private createLineTransformer(
