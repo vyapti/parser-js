@@ -34,21 +34,19 @@ const nodeConfig = {
   ...baseConfig,
   target: 'node',
   entry: {
-    'index': './src/index.ts',
+    'index.node': './src/node.ts',
   },
   node: {
     fs: true,
-  }
+    stream: true,
+  },
 };
 
 const webConfig = {
   ...baseConfig,
   target: 'web',
   entry: {
-    'index.umd': './src/index.ts',
-  },
-  node: {
-    fs: 'empty',
+    'index.web': './src/web.ts',
   },
 };
 
