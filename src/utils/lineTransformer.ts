@@ -11,13 +11,11 @@ class LineTransformer extends Transform {
 
   public _transform(
     chunk: any,
-    encoding: string,
+    _: string,
     callback: (error?: Error | null, data?: any) => void,
   ): void {
     try {
-      const encodeType =
-        (encoding === 'buffer' || !encoding) ? this._encoding : encoding;
-      const chunkStr: string = chunk.toString(encodeType);
+      const chunkStr: string = chunk.toString(this._encoding);
       const total = this._overflow + chunkStr;
       const lines = total.split('\n');
       this._overflow = lines.pop() || '';
@@ -31,14 +29,10 @@ class LineTransformer extends Transform {
   }
 
   public _flush(callback: (error?: Error | null, data?: any) => void): void {
-    try {
-      this._overflow.split('\n').forEach(line => {
-        this.push(Buffer.from(line));
-      });
-      callback(null, null);
-    } catch (err) {
-      callback(err, null);
-    }
+    this._overflow.split('\n').forEach(line => {
+      this.push(Buffer.from(line));
+    });
+    callback(null, null);
   }
 }
 
