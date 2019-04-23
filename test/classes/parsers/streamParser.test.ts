@@ -28,8 +28,8 @@ describe('StreamParser (Abstract)', () => {
     expect(() => {
       sp.parseSync('something', {
         encoding: 'buffer',
-        rootDirectory: '/root',
         mode: ReportMode.Simple,
+        rootDirectory: '/root',
       });
     }).to.throw(/not supported/);
   });
