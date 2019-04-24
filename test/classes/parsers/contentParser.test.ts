@@ -160,8 +160,8 @@ describe('ContentParser', () => {
 
       it('should parse contents into a Report when using Simple Report Mode', async () => {
         const report = await parser.parse(parserContents, {
-          rootDirectory: '/root',
           mode: ReportMode.Simple,
+          rootDirectory: '/root',
         });
         expect(report).to.be.an.instanceOf(Report);
         validateBasicReport(report);
@@ -169,8 +169,8 @@ describe('ContentParser', () => {
 
       it('should parse contents into a FlatReport when using Detail Report Mode', async () => {
         const report = await parser.parse(parserContents, {
-          rootDirectory: '/root',
           mode: ReportMode.Detail,
+          rootDirectory: '/root',
         });
         expect(report).to.be.an.instanceOf(FlatReport);
         validateDetailReport(report);
@@ -178,8 +178,8 @@ describe('ContentParser', () => {
 
       it('should parse contents into a TreeReport when using Tree Report Mode', async () => {
         const report = await parser.parse(parserContents, {
-          rootDirectory: '/root',
           mode: ReportMode.Tree,
+          rootDirectory: '/root',
         });
         expect(report).to.be.an.instanceOf(TreeReport);
         validateDetailReport(report);
@@ -253,8 +253,8 @@ describe('ContentParser', () => {
 
       it('should parse contents into a Report when using Simple Report Mode', () => {
         const report = parser.parseSync(parserContents, {
-          rootDirectory: '/root',
           mode: ReportMode.Simple,
+          rootDirectory: '/root',
         });
         expect(report).to.be.an.instanceOf(Report);
         validateBasicReport(report);
@@ -262,8 +262,8 @@ describe('ContentParser', () => {
 
       it('should parse contents into a FlatReport when using Detail Report Mode', () => {
         const report = parser.parseSync(parserContents, {
-          rootDirectory: '/root',
           mode: ReportMode.Detail,
+          rootDirectory: '/root',
         });
         expect(report).to.be.an.instanceOf(FlatReport);
         validateDetailReport(report);
@@ -271,8 +271,8 @@ describe('ContentParser', () => {
 
       it('should parse contents into a TreeReport when using Tree Report Mode', () => {
         const report = parser.parseSync(parserContents, {
-          rootDirectory: '/root',
           mode: ReportMode.Tree,
+          rootDirectory: '/root',
         });
         expect(report).to.be.an.instanceOf(TreeReport);
         validateDetailReport(report);

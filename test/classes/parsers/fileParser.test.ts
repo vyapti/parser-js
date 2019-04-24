@@ -20,6 +20,14 @@ describe('FileParser', () => {
   let sandbox: sinon.SinonSandbox;
   let parser: FileParser;
 
+  beforeEach(() => {
+    sandbox = sinon.createSandbox();
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   it('should construct properly when fs.readFile and fs.readFileSync are supported', () => {
     sandbox.stub(fs, 'readFile');
     sandbox.stub(fs, 'readFileSync');
@@ -53,14 +61,6 @@ describe('FileParser', () => {
     expect(() => {
       parser = new FileParser();
     }).to.throw('FileParser is not supported in this environment!');
-  });
-
-  beforeEach(() => {
-    sandbox = sinon.createSandbox();
-  });
-
-  afterEach(() => {
-    sandbox.restore();
   });
 
   describe('parse', () => {
