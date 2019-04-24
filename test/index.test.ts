@@ -7,12 +7,5 @@ it('top level export should expose correct elements', () => {
   assert.isDefined(topLevel.ContentParser, 'Content Parser should be exposed');
   assert.isDefined(topLevel.FileParser, 'File Parser should be exposed');
   assert.isDefined(topLevel.ReportMode, 'Report Mode should be exposed');
-  assert.isDefined(
-    topLevel.NodeStreamParser,
-    'Node Stream Parser should be exposed',
-  );
-  assert.isDefined(
-    topLevel.BrowserStreamParser,
-    'Browser Stream Parser should be exposed',
-  );
+  assert.isDefined(topLevel.StreamParser, 'Stream Parser should be exposed');
 });
