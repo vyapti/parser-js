@@ -7,7 +7,7 @@ import Report from '../reports/report';
 
 abstract class Parser {
   public abstract async parse(
-    _: string | ReadableStream,
+    _: any,
     __: {
       encoding?: string;
       rootDirectory?: string;
@@ -16,7 +16,7 @@ abstract class Parser {
   ): Promise<Report>;
 
   public abstract parseSync(
-    _: string | ReadableStream,
+    _: any,
     __: { encoding?: string; rootDirectory?: string },
   ): Report;
 

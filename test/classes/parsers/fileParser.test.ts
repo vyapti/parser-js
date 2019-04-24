@@ -20,6 +20,14 @@ describe('FileParser', () => {
   let sandbox: sinon.SinonSandbox;
   let parser: FileParser;
 
+  beforeEach(() => {
+    sandbox = sinon.createSandbox();
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   it('should construct properly when fs.readFile and fs.readFileSync are supported', () => {
     sandbox.stub(fs, 'readFile');
     sandbox.stub(fs, 'readFileSync');
@@ -53,14 +61,6 @@ describe('FileParser', () => {
     expect(() => {
       parser = new FileParser();
     }).to.throw('FileParser is not supported in this environment!');
-  });
-
-  beforeEach(() => {
-    sandbox = sinon.createSandbox();
-  });
-
-  afterEach(() => {
-    sandbox.restore();
   });
 
   describe('parse', () => {
@@ -99,8 +99,8 @@ describe('FileParser', () => {
 
         it('should parse file into a Report using Simple Report Mode', async () => {
           const report = await parser.parse('testpath', {
-            rootDirectory: '/root',
             mode: ReportMode.Simple,
+            rootDirectory: '/root',
           });
           expect(report).to.be.an.instanceOf(Report);
           validateBasicReport(report);
@@ -109,8 +109,8 @@ describe('FileParser', () => {
 
         it('should parse file into a FlatReport using Detail Report Mode', async () => {
           const report = await parser.parse('testpath', {
-            rootDirectory: '/root',
             mode: ReportMode.Detail,
+            rootDirectory: '/root',
           });
           expect(report).to.be.an.instanceOf(FlatReport);
           validateDetailReport(report);
@@ -119,8 +119,8 @@ describe('FileParser', () => {
 
         it('should parse file into a TreeReport using Tree Report Mode', async () => {
           const report = await parser.parse('testpath', {
-            rootDirectory: '/root',
             mode: ReportMode.Tree,
+            rootDirectory: '/root',
           });
           expect(report).to.be.an.instanceOf(TreeReport);
           validateDetailReport(report);
@@ -324,8 +324,8 @@ describe('FileParser', () => {
 
         it('should parse file into a Report using Simple Report Mode', () => {
           const report = parser.parseSync('testpath', {
-            rootDirectory: '/root',
             mode: ReportMode.Simple,
+            rootDirectory: '/root',
           });
           expect(report).to.be.an.instanceOf(Report);
           validateBasicReport(report);
@@ -334,8 +334,8 @@ describe('FileParser', () => {
 
         it('should parse file into a FlatReport using Detail Report Mode', () => {
           const report = parser.parseSync('testpath', {
-            rootDirectory: '/root',
             mode: ReportMode.Detail,
+            rootDirectory: '/root',
           });
           expect(report).to.be.an.instanceOf(FlatReport);
           validateDetailReport(report);
@@ -344,8 +344,8 @@ describe('FileParser', () => {
 
         it('should parse file into a TreeReport using Tree Report Mode', () => {
           const report = parser.parseSync('testpath', {
-            rootDirectory: '/root',
             mode: ReportMode.Tree,
+            rootDirectory: '/root',
           });
           expect(report).to.be.an.instanceOf(TreeReport);
           validateDetailReport(report);
