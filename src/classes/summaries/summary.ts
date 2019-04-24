@@ -1,9 +1,8 @@
-import Cloneable from '../../interfaces/cloneable';
-import Combinable from '../../interfaces/combinable';
+import { ICloneable, ICombinable } from '../../types';
 
 import Record from '../records/record';
 
-class Summary implements Cloneable<Summary>, Combinable<Summary> {
+class Summary implements ICloneable<Summary>, ICombinable<Summary> {
   protected _branch: Record;
   protected _function: Record;
   protected _line: Record;

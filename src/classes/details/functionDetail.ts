@@ -1,10 +1,9 @@
-import Cloneable from '../../interfaces/cloneable';
-import Combinable from '../../interfaces/combinable';
+import { ICloneable, ICombinable } from '../../types';
 
 import Detail from './detail';
 
 class FunctionDetail extends Detail
-  implements Cloneable<FunctionDetail>, Combinable<FunctionDetail> {
+  implements ICloneable<FunctionDetail>, ICombinable<FunctionDetail> {
   private _name: string = '(anonymous)';
 
   constructor(lineNumber: number, executionCount: number, name: string) {
