@@ -1,7 +1,6 @@
-import Cloneable from '../../interfaces/cloneable';
-import Combinable from '../../interfaces/combinable';
+import { ICloneable, ICombinable } from '../../types';
 
-class Detail implements Cloneable<Detail>, Combinable<Detail> {
+class Detail implements ICloneable<Detail>, ICombinable<Detail> {
   protected _lineNumber: number = -1;
   protected _executionCount: number = -1;
 

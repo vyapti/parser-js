@@ -1,10 +1,9 @@
-import Cloneable from '../../interfaces/cloneable';
-import Combinable from '../../interfaces/combinable';
+import { ICloneable, ICombinable } from '../../types';
 
 import Detail from './detail';
 
 class BranchDetail extends Detail
-  implements Cloneable<BranchDetail>, Combinable<BranchDetail> {
+  implements ICloneable<BranchDetail>, ICombinable<BranchDetail> {
   private _blockNumber: number = -1;
   private _branches: { [index: number]: number } = {};
 

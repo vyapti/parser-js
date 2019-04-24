@@ -1,10 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 
-const baseConfig = {
+module.exports = {
+  target: 'web',
   mode: 'production',
-  entry: './src/index.ts',
-  devtool: 'inline-source-map',
+  entry: {
+    'index': './src/web.ts',
+    'index.min': './src/web.ts',
+  },
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -20,34 +25,19 @@ const baseConfig = {
   plugins: [
     new webpack.ProgressPlugin(),
   ],
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        sourceMap: true,
+        include: /\.min\.js$/,
+      }),
+    ],
+  },
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, 'dist', 'web'),
     filename: '[name].js',
     libraryTarget: 'umd',
-    libraryExport: 'default',
-    library: 'vyapti__parser',
-    globalObject: 'this',
+    library: 'VyaptiParser',
+    umdNamedDefine: true,
   },
 };
-
-const nodeConfig = {
-  ...baseConfig,
-  target: 'node',
-  entry: {
-    'index.node': './src/node.ts',
-  },
-  node: {
-    fs: true,
-    stream: true,
-  },
-};
-
-const webConfig = {
-  ...baseConfig,
-  target: 'web',
-  entry: {
-    'index.web': './src/web.ts',
-  },
-};
-
-module.exports = [nodeConfig, webConfig];

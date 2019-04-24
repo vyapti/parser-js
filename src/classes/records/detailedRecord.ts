@@ -1,12 +1,11 @@
-import Cloneable from '../../interfaces/cloneable';
-import Combinable from '../../interfaces/combinable';
+import { ICloneable, ICombinable } from '../../types';
 
 import Detail from '../details/detail';
 
 import Record from './record';
 
 class DetailedRecord extends Record
-  implements Cloneable<DetailedRecord>, Combinable<DetailedRecord> {
+  implements ICloneable<DetailedRecord>, ICombinable<DetailedRecord> {
   private _details: { [index: number]: Detail } = {};
 
   constructor(

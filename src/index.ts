@@ -4,10 +4,18 @@ import FileParser from './classes/parsers/fileParser';
 import NodeStreamParser from './classes/parsers/nodeStreamParser';
 import { ReportMode } from './utils';
 
-export default {
-  BrowserStreamParser,
+let streamParser: any = BrowserStreamParser;
+if (
+  typeof process === 'object' &&
+  typeof process.versions === 'object' &&
+  process.versions.node !== undefined
+) {
+  streamParser = NodeStreamParser;
+}
+
+export {
   ContentParser,
   FileParser,
-  NodeStreamParser,
   ReportMode,
+  streamParser as StreamParser,
 };

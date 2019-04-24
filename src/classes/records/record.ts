@@ -1,7 +1,6 @@
-import Cloneable from '../../interfaces/cloneable';
-import Combinable from '../../interfaces/combinable';
+import { ICloneable, ICombinable } from '../../types';
 
-class Record implements Cloneable<Record>, Combinable<Record> {
+class Record implements ICloneable<Record>, ICombinable<Record> {
   private _total: number = 0;
   private _hit: number = 0;
   private _miss: number = 0;

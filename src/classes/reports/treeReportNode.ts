@@ -1,5 +1,4 @@
-import Cloneable from '../../interfaces/cloneable';
-import Combinable from '../../interfaces/combinable';
+import { ICloneable, ICombinable } from '../../types';
 
 import Record from '../records/record';
 import DetailedSummary from '../summaries/detailedSummary';
@@ -12,7 +11,7 @@ export function isLeaf(n: NodeOrLeaf): n is DetailedSummary {
 }
 
 class TreeReportNode extends Summary
-  implements Cloneable<TreeReportNode>, Combinable<TreeReportNode> {
+  implements ICloneable<TreeReportNode>, ICombinable<TreeReportNode> {
   protected _childPaths: string[] = [];
   protected _children: {
     [index: string]: NodeOrLeaf;
