@@ -13,11 +13,11 @@
     "typescript",
     "umd"
   ],
-  "homepage": "https://github.com/vyapti/parser.js/blob/master/README.md",
-  "bugs": "https://github.com/vyapti/parser.js/issues",
+  "homepage": "https://github.com/vyapti/parser-js/blob/master/README.md",
+  "bugs": "https://github.com/vyapti/parser-js/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vyapti/parser.js.git"
+    "url": "https://github.com/vyapti/parser-js.git"
   },
   "license": "MIT",
   "private": false,
