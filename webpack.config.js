@@ -36,7 +36,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist', 'web'),
     filename: '[name].js',
-    libraryExport: 'default',
     libraryTarget: 'umd',
     library: 'VyaptiParser',
     umdNamedDefine: true,
