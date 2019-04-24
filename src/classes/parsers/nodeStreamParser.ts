@@ -23,20 +23,32 @@ class NodeStreamParser extends StreamParser {
 
     return new Promise((resolve, reject) => {
       transformed.on('data', chunk => {
-        const line = chunk.toString();
-        builder.parse(line);
+        try {
+          const line = chunk.toString();
+          builder.parse(line);
+        } catch (err) {
+          transformed.removeAllListeners();
+          transformed.end();
+          reject(err);
+        }
       });
 
       transformed.on('end', () => {
-        const report = builder.build();
-        transformed.removeAllListeners();
-        resolve(report);
+        try {
+          const report = builder.build();
+          transformed.removeAllListeners();
+          resolve(report);
+        } catch (err) {
+          transformed.removeAllListeners();
+          transformed.end();
+          reject(err);
+        }
       });
 
       transformed.on('error', err => {
-        reject(err);
         transformed.removeAllListeners();
         transformed.end();
+        reject(err);
       });
     });
   }

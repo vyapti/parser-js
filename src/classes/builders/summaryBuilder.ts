@@ -47,7 +47,7 @@ class SummaryBuilder {
     if (!line.trim().length) {
       return;
     }
-    const [type, ...contents] = line.split(':');
+    const [type, ...contents] = line.trim().split(':');
     const content = contents.join(':');
     try {
       switch (type) {
