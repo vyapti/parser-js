@@ -21,7 +21,10 @@
   },
   "license": "MIT",
   "private": false,
-  "main": "dist/index.js",
+  "main": "dist/esm5/index.js",
+  "module": "dist/esm5/index.js",
+  "esnext": "dist/esm2015/index.js",
+  "es2015": "dist/esm2015/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
@@ -62,10 +65,13 @@
     "webpack-cli": "^3.3.0"
   },
   "scripts": {
-    "build": "yarn run clean && webpack",
-    "build:watch": "yarn run clean && webpack -w",
-    "build:dev": "yarn run clean && tsc",
-    "build:dev:watch": "yarn run clean && tsc -w",
+    "build": "run-s clean build:tsc build:tsc:es2018 build:webpack",
+    "build:webpack": "webpack",
+    "build:tsc": "tsc",
+    "build:tsc:watch": "tsc -w",
+    "build:tsc:es2018": "tsc --module esnext --target es2018 --outDir dist/esm2015",
+    "build:dev": "run-s clean build:tsc",
+    "build:dev:watch": "run-s clean build:tsc:watch",
     "clean": "yarn run clean:build",
     "clean:build": "rimraf dist/",
     "clean:coverage": "rimraf coverage/ .nyc_output/",
