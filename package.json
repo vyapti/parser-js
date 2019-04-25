@@ -79,8 +79,8 @@
     "coverage": "nyc mocha",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
-    "lint": "tslint -t stylish --project \"tsconfig.lint.json\"",
-    "lint:fix": "tslint -t stylish --fix --project \"tsconfig.lint.json\"",
+    "lint": "tslint -t stylish --project \"tsconfig.dev.json\"",
+    "lint:fix": "tslint -t stylish --fix --project \"tsconfig.dev.json\"",
     "test": "mocha",
     "test:watch": "nodemon --watch src --watch test -e ts,js --exec \"clear; yarn run test\""
   }
