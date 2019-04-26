@@ -35,8 +35,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'karma-typescript'],
-
+    reporters: ['progress', 'coverage', 'karma-typescript'],
 
     // web server port
     port: 9876,
@@ -70,6 +69,20 @@ module.exports = function(config) {
     // Karma Typescript Config
     karmaTypescriptConfig: {
       tsconfig: 'tsconfig.dev.json',
+      reports: {
+        html: {
+          directory: 'coverage/report-html',
+        },
+        lcovonly: {
+          directory: 'coverage/report-lcov',
+          filename: 'lcov.info',
+        },
+        text: '',
+      },
+    },
+
+    coverageReporter: {
+      type: 'in-memory', // Turn off default coverage reporting since karma-typescript handles it for us
     },
   });
 };
