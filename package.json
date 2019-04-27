@@ -81,7 +81,7 @@
     "clean:build": "rimraf dist/",
     "clean:coverage": "rimraf coverage/ .nyc_output/",
     "clean:all": "rimraf dist/ coverage/ .nyc_output/ node_modules/ yarn.lock",
-    "coverage": "nyc mocha",
+    "coverage": "nyc --report-dir \"coverage/partial-report/Node\" mocha",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "tslint -t stylish --project \"tsconfig.dev.json\"",

@@ -71,13 +71,25 @@ module.exports = function(config) {
       tsconfig: 'tsconfig.dev.json',
       reports: {
         html: {
-          directory: 'coverage/report-html',
+          directory: 'coverage/partial-report',
+          subdirectory: function(browser) {
+            return browser.name.split(' ')[0];
+          },
         },
         lcovonly: {
-          directory: 'coverage/report-lcov',
+          directory: 'coverage/partial-report',
           filename: 'lcov.info',
+          subdirectory: function(browser) {
+            return browser.name.split(' ')[0];
+          },
         },
-        text: '',
+        json: {
+          directory: 'coverage/partial-report',
+          filename: 'coverage.json',
+          subdirectory: function(browser) {
+            return browser.name.split(' ')[0];
+          },
+        },
       },
     },
 
