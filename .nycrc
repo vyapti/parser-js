@@ -2,7 +2,7 @@
   "extension": [".ts", ".tsx"],
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.d.ts"],
-  "reporter": ["json", "lcovonly", "html"],
+  "reporter": ["json", "lcov"],
   "require": ["ts-node/register"],
   "source-map": true,
   "instrument": true,
