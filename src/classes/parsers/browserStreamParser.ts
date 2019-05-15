@@ -47,7 +47,9 @@ class BrowserStreamParser extends StreamParser {
               return;
             }
 
-            const newLines = (partial + decoder.decode(value)).trim().split('\n');
+            const newLines = (partial + decoder.decode(value))
+              .trim()
+              .split('\n');
             partial = newLines.pop() || '';
             newLines.forEach(line => {
               controller.enqueue(line.trim());

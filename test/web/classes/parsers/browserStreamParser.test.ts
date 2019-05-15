@@ -49,9 +49,9 @@ describe('BrowserStreamParser', () => {
         closed: Promise.resolve(),
         read: sandbox.stub(),
         releaseLock: sandbox.stub(),
-      }
+      };
       readStub = mockReader.read;
-      mockReader.read.onCall(0).resolves({ done: false, value })
+      mockReader.read.onCall(0).resolves({ done: false, value });
       mockReader.read.onCall(1).resolves({ done: true, value: null });
       passThrough = sandbox.createStubInstance(ReadableStream);
       passThrough.getReader.returns(mockReader);
@@ -174,7 +174,10 @@ describe('BrowserStreamParser', () => {
         expect(report).to.be.an.instanceOf(Report);
         validateBasicReport(report);
         expect(parserCreateBuilderStub.callCount).to.equal(1);
-        expect(parserCreateBuilderStub).calledWith(undefined, ReportMode.Simple);
+        expect(parserCreateBuilderStub).calledWith(
+          undefined,
+          ReportMode.Simple,
+        );
         expect(builderParseSpy.callCount).to.equal(25);
         assert.isTrue(builderBuildSpy.calledOnce);
       });
@@ -187,7 +190,10 @@ describe('BrowserStreamParser', () => {
         expect(report).to.be.an.instanceOf(FlatReport);
         validateDetailReport(report);
         expect(parserCreateBuilderStub.callCount).to.equal(1);
-        expect(parserCreateBuilderStub).calledWith(undefined, ReportMode.Detail);
+        expect(parserCreateBuilderStub).calledWith(
+          undefined,
+          ReportMode.Detail,
+        );
         expect(builderParseSpy.callCount).to.equal(25);
         assert.isTrue(builderBuildSpy.calledOnce);
       });

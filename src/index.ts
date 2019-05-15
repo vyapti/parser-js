@@ -13,9 +13,4 @@ if (
   streamParser = NodeStreamParser;
 }
 
-export {
-  ContentParser,
-  FileParser,
-  ReportMode,
-  streamParser as StreamParser,
-};
+export { ContentParser, FileParser, ReportMode, streamParser as StreamParser };
