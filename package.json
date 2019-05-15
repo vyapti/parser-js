@@ -25,6 +25,7 @@
   "module": "dist/esm5/index.js",
   "esnext": "dist/esm2015/index.js",
   "es2015": "dist/esm2015/index.js",
+  "browser": "dist/web/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
