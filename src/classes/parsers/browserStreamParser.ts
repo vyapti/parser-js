@@ -42,16 +42,16 @@ class BrowserStreamParser extends StreamParser {
         const push = async (): Promise<void> => {
           return reader.read().then(({ done, value }) => {
             if (done) {
+              controller.enqueue(partial.trim());
               controller.close();
               return;
             }
 
-            const newLines = (partial + decoder.decode(value)).split('\n');
+            const newLines = (partial + decoder.decode(value)).trim().split('\n');
             partial = newLines.pop() || '';
             newLines.forEach(line => {
               controller.enqueue(line.trim());
             });
-
             return push();
           });
         };
