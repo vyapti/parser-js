@@ -10,7 +10,11 @@ module.exports = function(config) {
     frameworks: ['mocha', 'sinon', 'chai', 'karma-typescript'],
 
     // list of files / patterns to load in the browser
-    files: [{ pattern: 'src/**/*.ts' }, { pattern: 'test/common/**/*.ts' }],
+    files: [
+      { pattern: 'src/**/*.ts' },
+      { pattern: 'test/common/**/*.ts' },
+      { pattern: 'test/web/**/*.ts' },
+    ],
 
     // list of files / patterns to exclude
     exclude: [],
