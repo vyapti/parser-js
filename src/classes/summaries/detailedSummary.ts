@@ -4,12 +4,45 @@ import DetailedRecord from '../records/detailedRecord';
 
 import Summary from './summary';
 
+/**
+ * Detailed Coverage Summary Data
+ *
+ * A structured object to hold detailed coverage summary information for a
+ * specific path. This includes DetailedRecords for branch, function, and line
+ * data. Detailed summaries also support cloning and combining.
+ */
 class DetailedSummary extends Summary
   implements ICloneable<DetailedSummary>, ICombinable<DetailedSummary> {
+  /**
+   * Detailed Branch Record Data
+   *
+   * @hidden
+   */
   protected _branch: DetailedRecord;
+
+  /**
+   * Detailed Function Record Data
+   *
+   * @hidden
+   */
   protected _function: DetailedRecord;
+
+  /**
+   * Detailed Line Record Data
+   *
+   * @hidden
+   */
   protected _line: DetailedRecord;
 
+  /**
+   * Construct a DetailedSummary
+   *
+   * @param path   path associated with summary data
+   * @param name   name associated with summary data
+   * @param branch DetailedRecord for branch data to store
+   * @param func   DetailedRecord for function data to store
+   * @param line   DetailedRecord for line data to store
+   */
   constructor(
     path: string,
     name: string,
@@ -23,14 +56,29 @@ class DetailedSummary extends Summary
     this._line = line;
   }
 
+  /**
+   * Branch DetailedRecord for this Summary
+   *
+   * @readonly
+   */
   public get branch(): DetailedRecord {
     return this._branch;
   }
 
+  /**
+   * Function DetailedRecord for this Summary
+   *
+   * @readonly
+   */
   public get function(): DetailedRecord {
     return this._function;
   }
 
+  /**
+   * Line DetailedRecord for this Summary
+   *
+   * @readonly
+   */
   public get line(): DetailedRecord {
     return this._line;
   }
