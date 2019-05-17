@@ -1,6 +1,20 @@
 const pathSeparator: RegExp = /[\/\\]+/;
 const driveRoot: RegExp = /[a-zA-Z]\:/;
 
+/**
+ * Check if incoming string is a root path
+ *
+ * @remarks
+ * This method supports unix, dos, and web dos paths such as:
+ * ```
+ * /unix/root/path
+ * C:\dos\root\path
+ * /c:/web/dos/root/path
+ * ```
+ *
+ * @param str the path to test
+ * @returns Whether or not the path contains a root
+ */
 export function isRoot(str: string): boolean {
   const startsWithSeparator = new RegExp(`^${pathSeparator.source}`);
   if (startsWithSeparator.test(str)) {
@@ -15,6 +29,21 @@ export function isRoot(str: string): boolean {
   return false;
 }
 
+/**
+ * Normalize an incoming path's root and return both the normalized root as
+ * well as the originally matched root.
+ *
+ * If the incoming path is not a root path, an empty string is returned for
+ * both the normalized root and the original root
+ *
+ * @remarks
+ * Roots are normalized to a unix-like format using '/' as the root. If a dos
+ * or web dos path is incoming, the format is '/<driveLetter>:/'
+ *
+ * @param str the path whose root should be normalized
+ * @returns an array of length 2 where the first entry is the original root and
+ *          the second entry is the normalized root
+ */
 export function normalizeRoot(str: string) {
   const result = ['', ''];
   if (!isRoot(str)) {
@@ -38,12 +67,27 @@ export function normalizeRoot(str: string) {
   return result;
 }
 
+/**
+ * Compare two roots to determine if they are the same
+ *
+ * This method supports comparing different path formats for the same root path
+ * ```ts
+ * compareRoots('/c:/root', 'C:\\root'); // returns true!
+ * ```
+ */
 export function compareRoots(str1: string, str2: string): boolean {
   const [matchedRoot1] = normalizeRoot(str1);
   const [matchedRoot2] = normalizeRoot(str2);
   return matchedRoot1 === matchedRoot2;
 }
 
+/**
+ * Normalize a given path to a shared format
+ *
+ * Allows parsing paths to be easier since a single format is used. The format
+ * includes normalizing the root (see {@link normalizeRoot | normalizeRoot} for
+ * the normalized root format), and converting all path separators to '/'.
+ */
 export function normalize(str: string): string {
   const [matchedRoot, normalizedRoot] = normalizeRoot(str);
   const segmentStr = str.substring(matchedRoot.length);
@@ -86,6 +130,23 @@ export function normalize(str: string): string {
   return `${normalizedRoot}${resolvedSegments.join('/')}`;
 }
 
+/**
+ * Determine the normalized relative path from one path to another
+ *
+ * @remarks
+ * Incoming paths are normalized first and then compared against one another.
+ * The inputs can be either both relative paths or both root paths that share
+ * the same root.
+ *
+ * The following list of unsupported cases returns the normalized "to" path
+ * - from is relative, to is a root
+ * - from is a root, to is relative
+ * - from and to are both roots, but do not share the same root
+ *
+ * @param from the source path to use as the base of the relative path
+ * @param to the destination path that should be resolved
+ * @returns the normalized relative path between the two input paths
+ */
 export default function relative(from: string, to: string): string {
   // shortcut check
   if (from === to) {
