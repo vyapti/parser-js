@@ -1,4 +1,15 @@
+/**
+ * RegExp for path separators
+ *
+ * @hidden
+ */
 const pathSeparator: RegExp = /[\/\\]+/;
+
+/**
+ * RegExp for dos drive letters
+ *
+ * @hidden
+ */
 const driveRoot: RegExp = /[a-zA-Z]\:/;
 
 /**
