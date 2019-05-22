@@ -8,9 +8,27 @@ import DetailedSummaryBuilder from './detailedSummaryBuilder';
 import ReportBuilder from './reportBuilder';
 import TreeReportNodeBuilder from './treeReportNodeBuilder';
 
+/**
+ * Tree Report Builder
+ *
+ * An extension of {@link ReportBuilder | ReportBuilder} that builds a
+ * TreeReport instead of a regular Report.
+ */
 class TreeReportBuilder extends ReportBuilder {
+  /**
+   * Map of built DetailedSummaries keyed by summary paths
+   */
   protected _detailSummaries: { [index: string]: DetailedSummary } = {};
 
+  /**
+   * Build a TreeReport
+   *
+   * Use the parsed data to build a TreeReport. If at least on section of data
+   * has not been parsed yet, this method will throw an error.
+   *
+   * @returns TreeReport containing parsed data
+   * @throws when builder has not received at least one section of data
+   */
   public build(): TreeReport {
     if (!this._totalSummary) {
       throw new Error('Unable to build report: Not enough data!');
@@ -21,12 +39,30 @@ class TreeReportBuilder extends ReportBuilder {
     return new TreeReport(this._totalSummary, this._paths, details);
   }
 
+  /**
+   * Build a new DetailedSummaryBuilder for a detail section
+   *
+   * @param rootDirectory option to pass to DetailedSummaryBuilder constructor
+   * @returns DetailedSummaryBuilder
+   *
+   */
   protected getDetailSummaryBuilder(
     rootDirectory?: string,
   ): DetailedSummaryBuilder {
     return new DetailedSummaryBuilder(rootDirectory);
   }
 
+  /**
+   * Helper method to transform the map of DetailedSummaries to a tree of
+   * TreeReportNodes or DetailedSummaries.
+   *
+   * @remarks
+   * This method relies on two other helper methods to 1) group the paths in
+   * the tree structure and 2) Apply the DetailedSummaries to the tree
+   * structure
+   *
+   * @returns Detail Map to use for TreeReport
+   */
   private buildDetailTree(): { [index: string]: NodeOrLeaf } {
     const groups = this.groupify(this._detailSummaries);
     const node = this.buildify(groups);
@@ -38,6 +74,15 @@ class TreeReportBuilder extends ReportBuilder {
     return node.children;
   }
 
+  /**
+   * Helper method to group paths of Detailed Summaries together in a tree-like
+   * structure.
+   *
+   * @param summaries DetailedSummary map to group
+   * @param path root path for the group
+   *
+   * @hidden
+   */
   private groupify(
     summaries: { [index: string]: DetailedSummary },
     path: string = '',
@@ -100,6 +145,14 @@ class TreeReportBuilder extends ReportBuilder {
     };
   }
 
+  /**
+   * Helper method to built TreeReportNodes using the tree-like structure
+   *
+   * @param rawNode Tree-like structure to use as the basis of the Detail Tree
+   * @param path path to use as root for the group
+   *
+   * @hidden
+   */
   private buildify(rawNode: any, path: string = ''): NodeOrLeaf {
     if (!rawNode.tree) {
       return rawNode as DetailedSummary;

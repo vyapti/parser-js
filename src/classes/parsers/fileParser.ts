@@ -5,7 +5,19 @@ import Report from '../reports/report';
 
 import Parser from './parser';
 
+/**
+ * File Parser
+ *
+ * An extension of {@link Parser | Parser} that supports reading data from
+ * files when generating reports.
+ */
 class FileParser extends Parser {
+  /**
+   * Construct a FileParser
+   *
+   * Performs a check to makes sure file system methods are supported before
+   * continuing.
+   */
   constructor() {
     super();
     if (!fs.readFile || !fs.readFileSync) {
@@ -13,6 +25,19 @@ class FileParser extends Parser {
     }
   }
 
+  /**
+   * Parse (Asynchronously)
+   *
+   * Parse an input with the given options and return a Promise of a Report.
+   *
+   * @param filePath path to file that contains data to parse
+   * @param options Optional options to control how the report is generated:
+   *   - encoding - the type of encoding of the input data
+   *   - rootDirectory - base directory that all paths are relativized from
+   *   - mode - The type of Report that should be built
+   *
+   * @returns Promise that resolves with a parsed Report
+   */
   public async parse(
     filePath: string,
     options: {
@@ -39,6 +64,19 @@ class FileParser extends Parser {
     return this.parseContents(stringContent, rootDirectory, mode);
   }
 
+  /**
+   * Parse (Synchronously)
+   *
+   * Parse an input with the given options and return a Report.
+   *
+   * @param filePath path to file that contains data to parse
+   * @param options Optional options to control how the report is generated:
+   *   - encoding - the type of encoding of the input data
+   *   - rootDirectory - base directory that all paths are relativized from
+   *   - mode - The type of Report that should be built
+   *
+   * @returns Parsed Report
+   */
   public parseSync(
     filePath: string,
     options: {

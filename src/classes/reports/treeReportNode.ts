@@ -4,19 +4,57 @@ import Record from '../records/record';
 import DetailedSummary from '../summaries/detailedSummary';
 import Summary from '../summaries/summary';
 
+/**
+ * Convenience type for creating a tree-like structure
+ */
 export type NodeOrLeaf = TreeReportNode | DetailedSummary;
 
+/**
+ * Determine if input is a Leaf
+ *
+ * @param n node (or leaf) to test
+ */
 export function isLeaf(n: NodeOrLeaf): n is DetailedSummary {
   return !(n as TreeReportNode).children;
 }
 
+/**
+ * Tree Report Node
+ *
+ * An extension of {@link Summary | Summary} that also includes a set of child
+ * `TreeReportNode`s or `DetailedSummary`s to create a tree-like structure.
+ * This is used by the {@link TreeReport | TreeReport} to build a hierarchy
+ * that matches a directory structure for a set of paths.
+ */
 class TreeReportNode extends Summary
   implements ICloneable<TreeReportNode>, ICombinable<TreeReportNode> {
+  /**
+   * List of paths that are desendents of this node
+   *
+   * @hidden
+   */
   protected _childPaths: string[] = [];
+
+  /**
+   * Children of this node
+   *
+   * @hidden
+   */
   protected _children: {
     [index: string]: NodeOrLeaf;
   } = {};
 
+  /**
+   * Construct a Tree Report Node
+   *
+   * @param path       path associated with summary data
+   * @param name       name associated with summary data
+   * @param branch     Record for branch data to store
+   * @param func       Record for function data to store
+   * @param line       Record for line data to store
+   * @param childPaths Descendents of this node
+   * @param children   Child nodes of this node
+   */
   constructor(
     path: string,
     name: string,
@@ -38,10 +76,20 @@ class TreeReportNode extends Summary
     }
   }
 
+  /**
+   * List of paths that are descendents of this node
+   *
+   * @readonly
+   */
   public get childPaths() {
     return this._childPaths;
   }
 
+  /**
+   * Child nodes or leafs of this node
+   *
+   * @readonly
+   */
   public get children() {
     return this._children;
   }

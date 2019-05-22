@@ -9,11 +9,43 @@ import FunctionDetail from '../details/functionDetail';
 
 import SummaryBuilder from './summaryBuilder';
 
+/**
+ * Detailed Summary Builder
+ *
+ * An extension of {@link SummaryBuilder | SummaryBuilder} that supports
+ * parsing detailed data within the LCOV format.
+ */
 class DetailedSummaryBuilder extends SummaryBuilder {
+  /**
+   * Detailed Branch data
+   *
+   * @hidden
+   */
   protected _branchDetails: BranchDetail[] = [];
+
+  /**
+   * Detailed Function data
+   *
+   * @hidden
+   */
   protected _functionDetails: FunctionDetail[] = [];
+
+  /**
+   * Detailed Line data
+   *
+   * @hidden
+   */
   protected _lineDetails: Detail[] = [];
 
+  /**
+   * Build a DetailedSummary
+   *
+   * Use the parsed data to build a DetailedSummary. If requisite data has not
+   * been provided yet, this method will throw an error
+   *
+   * @returns DetailedSummary containing parsed data
+   * @throws when builder has not received all data yet
+   */
   public build(): DetailedSummary {
     if (!this._readyToBuild) {
       throw new Error('Unable to build: End of Record not reached');
@@ -45,6 +77,15 @@ class DetailedSummaryBuilder extends SummaryBuilder {
     );
   }
 
+  /**
+   * Parse a line of data
+   *
+   * Parse a line of data that matches the LCOV format.
+   *
+   * Invalid input will result in a no-op.
+   *
+   * @param line data to parse
+   */
   public parse(line: string): void {
     if (!line.trim().length) {
       return;
