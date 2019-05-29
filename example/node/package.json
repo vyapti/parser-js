@@ -1,0 +1,16 @@
+{
+  "name": "parser-example",
+  "version": "1.0.0",
+  "description": "example usage for @vyapti/parser",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@vyapti/parser": "^0.1.0"
+  },
+  "scripts": {
+    "content": "node contentExample.js",
+    "file": "node fileExample.js",
+    "stream": "node streamExample.js"
+  }
+}

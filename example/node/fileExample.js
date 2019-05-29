@@ -1,5 +1,5 @@
 const path = require('path');
-const { FileParser, ReportMode } = require('../../dist/esm5'); // TODO: replace with "@vyapti/parser"
+const { FileParser, ReportMode } = require('@vyapti/parser');
 const { displayReportData } = require('../web/displayReport');
 
 // Setup
