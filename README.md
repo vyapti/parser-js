@@ -11,7 +11,7 @@ Installing as a package
 ```bash
 # Using yarn:
 yarn add @vyapti/parser
-# Using npm
+# Using npm:
 npm install @vyapti/parser
 ```
 
@@ -57,6 +57,17 @@ fetch(urlToLcovFile)
     // Use the parsed report...
   });
 ```
+
+## Examples
+Examples of the parser-js usage are available in the `example/` directory for
+both node and browser environments. All examples are runnable, so feel free to
+clone the project and playaround!
+
+To use the `node` examples, navigate to `example/node` and run a `yarn install`
+or `npm install`. You can then run the available examples using `node`.
+
+To use the `browser` examples, simply load the included `html` files in
+`example/web`.
 
 ### API
 
