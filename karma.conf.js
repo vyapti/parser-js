@@ -1,6 +1,11 @@
 // Karma configuration
 // Generated on Wed Apr 24 2019 17:56:59 GMT-0500 (Central Daylight Time)
 module.exports = function(config) {
+  const browsers = ['ChromeHeadless'];
+  if (!process.env.CI) {
+    browsers.push('Chrome')
+    browsers.push('Firefox')
+  }
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -46,7 +51,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'ChromeHeadless', 'Firefox'],
+    browsers,
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
