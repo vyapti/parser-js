@@ -80,7 +80,7 @@ describe('FileParser', () => {
       };
 
       describe('when file reading succeeds', () => {
-        let readFileStub: sinon.SinonStub;
+        let readFileStub: sinon.SinonStub<any[], void>;
 
         beforeEach(() => {
           readFileStub = sandbox.stub(fs, 'readFile');
@@ -128,7 +128,7 @@ describe('FileParser', () => {
       });
 
       describe('when file reading fails', () => {
-        let readFileStub: sinon.SinonStub;
+        let readFileStub: sinon.SinonStub<any[], void>;
 
         beforeEach(() => {
           readFileStub = sandbox.stub(fs, 'readFile');
@@ -196,7 +196,7 @@ describe('FileParser', () => {
       };
 
       describe('when file reading succeeds', () => {
-        let readFileStub: sinon.SinonStub;
+        let readFileStub: sinon.SinonStub<any[], void>;
 
         beforeEach(() => {
           readFileStub = sandbox.stub(fs, 'readFile');
@@ -239,7 +239,7 @@ describe('FileParser', () => {
       });
 
       describe('when file reading fails', () => {
-        let readFileStub: sinon.SinonStub;
+        let readFileStub: sinon.SinonStub<any[], void>;
 
         beforeEach(() => {
           readFileStub = sandbox.stub(fs, 'readFile');
@@ -305,7 +305,7 @@ describe('FileParser', () => {
       };
 
       describe('when file reading succeeds', () => {
-        let readFileSyncStub: sinon.SinonStub;
+        let readFileSyncStub: sinon.SinonStub<[any, any?], any>;
 
         beforeEach(() => {
           readFileSyncStub = sandbox.stub(fs, 'readFileSync');
@@ -353,7 +353,7 @@ describe('FileParser', () => {
       });
 
       describe('when file reading fails', () => {
-        let readFileSyncStub: sinon.SinonStub;
+        let readFileSyncStub: sinon.SinonStub<[any, any?], any>;
 
         beforeEach(() => {
           readFileSyncStub = sandbox.stub(fs, 'readFileSync');
@@ -414,7 +414,7 @@ describe('FileParser', () => {
       };
 
       describe('when file reading succeeds', () => {
-        let readFileSyncStub: sinon.SinonStub;
+        let readFileSyncStub: sinon.SinonStub<[any, any?], any>;
 
         beforeEach(() => {
           readFileSyncStub = sandbox.stub(fs, 'readFileSync');
@@ -457,7 +457,7 @@ describe('FileParser', () => {
       });
 
       describe('when file reading fails', () => {
-        let readFileSyncStub: sinon.SinonStub;
+        let readFileSyncStub: sinon.SinonStub<[any, any?], any>;
 
         beforeEach(() => {
           readFileSyncStub = sandbox.stub(fs, 'readFileSync');
