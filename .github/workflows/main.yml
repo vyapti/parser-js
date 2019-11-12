@@ -17,4 +17,4 @@ jobs:
     - name: Install Deps
       run: yarn install
     - name: Run coverage
-      run: yarn run coverage
+      run: yarn cross-env CI=1 yarn run coverage

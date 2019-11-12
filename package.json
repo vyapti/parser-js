@@ -89,7 +89,6 @@
     "clean:coverage": "rimraf coverage/ .nyc_output/",
     "clean:docs": "rimraf docs/",
     "coverage": "run-s clean:coverage coverage:node coverage:web coverage:combine",
-    "coverage:ci": "cross-env CI=1 run-s clean:coverage coverage:node coverage:web coverage:combine",
     "coverage:combine": "node scripts/combineCoverage.js",
     "coverage:node": "nyc --report-dir \"coverage/node\" mocha",
     "coverage:web": "node scripts/runKarma.js",
