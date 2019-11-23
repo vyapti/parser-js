@@ -54,7 +54,7 @@
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-cli": "^2.0.0",
-    "karma-coverage": "^2.0.1",
+    "karma-coverage": "pr1sm/karma-coverage#update_source_map_handling",
     "karma-firefox-launcher": "^1.1.0",
     "karma-mocha": "^1.3.0",
     "karma-sinon": "^1.0.5",

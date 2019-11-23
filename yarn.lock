@@ -3232,6 +3232,17 @@ karma-coverage@^1.1.1, karma-coverage@^2.0.1:
     minimatch "^3.0.0"
     source-map "^0.5.1"
 
+karma-coverage@pr1sm/karma-coverage#update_source_map_handling:
+  version "2.0.1"
+  resolved "https://codeload.github.com/pr1sm/karma-coverage/tar.gz/01b3cffdd5af1fcb57e261396b581f361fe293f5"
+  dependencies:
+    istanbul-lib-coverage "^2.0.5"
+    istanbul-lib-instrument "^3.3.0"
+    istanbul-lib-report "^2.0.8"
+    istanbul-lib-source-maps "^3.0.6"
+    istanbul-reports "^2.2.4"
+    minimatch "^3.0.0"
+
 karma-firefox-launcher@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/karma-firefox-launcher/-/karma-firefox-launcher-1.2.0.tgz#64fe03dd10300f9754d48f9ebfbf31f6c94a200c"
