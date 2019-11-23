@@ -1,6 +1,6 @@
 {
   "name": "@vyapti/parser",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Srinivas Dhanwada <dhanwada.dev@gmail.com> (https://github.com/pr1sm)",
   "description": "lcov coverage parser for files and streams",
   "keywords": [
